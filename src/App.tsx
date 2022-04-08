@@ -1,24 +1,21 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
+
+import MDSample from "./markdown-sample.md";
 
 function App() {
+  const [sample, setSample] = useState("");
+
+  // Fetch Terms of Use
+  useEffect(() => {
+    fetch(MDSample)
+      .then((res) => res.text())
+      .then((text) => setSample(text));
+  });
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ReactMarkdown children={sample} />
     </div>
   );
 }
